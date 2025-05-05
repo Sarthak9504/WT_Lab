@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>adjList Search Visualizer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #e0eafc, #cfdef3);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .card {
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .pills .nav-link.active {
+            background-color: #0d6efd;
+        }
+
+        .form {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+
+        .output-path {
+            min-height: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <h1>Graph Traversal Visualizer</h1>
+            <p class="text-muted">Search using BFS or DFS through a custom graph</p>
+        </div>
+
+        <div class="card p-4">
+            <ul class="nav pills justify-content-center mb-4" id="searchTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="bfs-tab" data-bs-toggle="pill" data-bs-destination="#bfs"
+                        type="button" role="tab">BFS</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="dfs-tab" data-bs-toggle="pill" data-bs-destination="#dfs" type="button"
+                        role="tab">DFS</button>
+                </li>
+            </ul>
+
+            <div class="form">
+                <div class="mb-3">
+                    <label for="adjListData" class="form-label">Graph (Adjacency List in JSON)</label>
+                    <textarea class="form-control" id="adjListData" rows="3"
+                        placeholder='{"1": [2, 3], "2": [4], "3": [], "4": []}'></textarea>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="sourceNode" class="form-label">Source Node</label>
+                        <input type="number" class="form-control" id="sourceNode" placeholder="e.g. 1">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="destinationNode" class="form-label">Destination Node</label>
+                        <input type="number" class="form-control" id="destinationNode" placeholder="e.g. 4">
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-primary px-4" onclick="executeSearch()">Execute Search</button>
+                </div>
+
+                <div class="mt-4 output-path">
+                    <div id="output" class="alert alert-info text-center">No search performed yet.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function bfs(adjList, source, destination) {
+            let queue = [source];
+            let visited = new Set();
+            let path = [];
+
+            while (queue.length > 0) {
+                let node = queue.shift();
+                path.push(node);
+                if (node == destination) return { found: true, path };
+
+                visited.add(node);
+                for (let neighbor of (adjList[node] || [])) {
+                    if (!visited.has(neighbor)) {
+                        queue.push(neighbor);
+                        visited.add(neighbor);
+                    }
+                }
+            }
+            return { found: false, path };
+        }
+
+        function dfs(adjList, current, destination, visited = new Set(), path = []) {
+            visited.add(current);
+            path.push(current);
+            if (current == destination) return { found: true, path };
+
+            for (let neighbor of (adjList[current] || [])) {
+                if (!visited.has(neighbor)) {
+                    let output = dfs(adjList, neighbor, destination, visited, path);
+                    if (output.found) return output;
+                }
+            }
+            return { found: false, path };
+        }
+
+        function executeSearch() {
+            const adjListText = document.getElementById("adjListData").value;
+            const source = parseInt(document.getElementById("sourceNode").value);
+            const destination = parseInt(document.getElementById("destinationNode").value);
+            const outputBox = document.getElementById("output");
+
+            let selectedAlgo = document.querySelector(".nav-link.active").textContent;
+
+            try {
+                const adjList = JSON.parse(adjListText);
+                const searchoutput = selectedAlgo === "BFS"
+                    ? bfs(adjList, source, destination)
+                    : dfs(adjList, source, destination);
+
+                outputBox.className = `alert ${searchoutput.found ? 'alert-success' : 'alert-danger'} text-center`;
+                outputBox.innerHTML = `
+            <strong>${selectedAlgo} output:</strong><br>
+            ${searchoutput.found ? "🎯 Destination found!" : "❌ Destination not found."}<br>
+            <strong>Path:</strong> ${searchoutput.path.join(" → ")}
+        `;
+            } catch (e) {
+                outputBox.className = "alert alert-danger text-center";
+                outputBox.textContent = "⚠️ Please provide a valid JSON format for the adjList.";
+            }
+        }
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
