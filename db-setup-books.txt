@@ -1,0 +1,53 @@
+1) Create the Database
+CREATE DATABASE book_store;
+
+USE book_store;
+
+2) Create Users and Products table
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    image TEXT,
+    description TEXT,
+    cost VARCHAR(10),
+    category VARCHAR(50)
+);
+
+3) Insert into the products table
+
+-- Fantasy Books
+INSERT INTO products (name, image, description, cost, category) VALUES
+('The Hobbit', 'https://tse4.mm.bing.net/th?id=OIP.9v49QffVhOQ_mYEZ3V3nAwHaLQ&pid=Api&P=0&h=180g', 'A fantasy novel by J.R.R. Tolkien.', '15.99', 'Fantasy'),
+('Harry Potter and the Sorcerer''s Stone', 'https://tse2.mm.bing.net/th?id=OIP.p86Oos045a56ltzRNN8b3wHaLH&pid=Api&P=0&h=180g', 'The first novel in the Harry Potter series by J.K. Rowling.', '12.50', 'Fantasy'),
+('The Name of the Wind', 'https://media1.popsugar-assets.com/files/thumbor/OxYnIisQ15WrVyDBrDqV_7Furtg/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2017/08/11/767/n/1922283/1792d21e598de8671ef134.31993475_the-name-of-the-wind-1/i/Name-Wind.jpgg', 'Fantasy novel by Patrick Rothfuss about a magically gifted young man.', '14.99', 'Fantasy');
+
+-- Adventure Books
+INSERT INTO products (name, image, description, cost, category) VALUES
+('The Adventures of Tom Sawyer', 'https://tse4.mm.bing.net/th?id=OIP.fS8VX48ZgKXmKKltzldY2gHaJl&pid=Api&P=0&h=180', 'Adventure novel by Mark Twain.', '8.50', 'Adventure'),
+('Treasure Island', 'https://tse1.mm.bing.net/th?id=OIP.h-pOPzAsGzslgYdyg_nn8gHaKR&pid=Api&P=0&h=180', 'Adventure novel by Robert Louis Stevenson about pirates and treasure.', '9.99', 'Adventure'),
+('Journey to the Center of the Earth', 'https://tse4.mm.bing.net/th?id=OIP.K84ClmBW1rS6JXOfzn31vAHaMK&pid=Api&P=0&h=180', 'Science fiction adventure novel by Jules Verne.', '11.00', 'Adventure');
+
+-- Biography Books
+INSERT INTO products (name, image, description, cost, category) VALUES
+('Steve Jobs', 'https://tse3.mm.bing.net/th?id=OIP.EGc7gMXj0MzsS4v_SdEeRQHaLS&pid=Api&P=0&h=180', 'Biography of Steve Jobs by Walter Isaacson.', '18.99', 'Biography'),
+('Long Walk to Freedom', 'https://tse3.mm.bing.net/th?id=OIP.ieX8JBqIXR3tQ0nnfkyLhgHaLR&pid=Api&P=0&h=180', 'Autobiography of Nelson Mandela.', '13.49', 'Biography'),
+('Becoming', 'https://tse3.mm.bing.net/th?id=OIP.e__NEYvJpiqMPy4lAR_zHgHaLQ&pid=Api&P=0&h=180', 'Memoir of former First Lady Michelle Obama.', '16.75', 'Biography');
+
+-- Science Fiction Books
+INSERT INTO products (name, image, description, cost, category) VALUES
+('Dune', 'https://tse3.mm.bing.net/th?id=OIP.nnI3HkIMILxsvNqQpC2X1gHaLM&pid=Api&P=0&h=180', 'Science fiction novel by Frank Herbert set in a distant future.', '17.99', 'Science Fiction'),
+('Ender''s Game', 'https://tse4.mm.bing.net/th?id=OIP.Z7n5zUBvPIFQrMZ678oQCAHaLq&pid=Api&P=0&h=180', 'Military science fiction novel by Orson Scott Card.', '14.50', 'Science Fiction'),
+('The Martian', 'https://tse4.mm.bing.net/th?id=OIP.StTYdh7b5z92GtAg-RZlxAHaLP&pid=Api&P=0&h=180', 'Sci-fi novel by Andy Weir about a stranded astronaut on Mars.', '15.25', 'Science Fiction');
+
+-- History Books
+INSERT INTO products (name, image, description, cost, category) VALUES
+('Sapiens: A Brief History of Humankind', 'https://tse2.mm.bing.net/th?id=OIP.U7Cgx-f0lhA5IKBUL8viFgHaLX&pid=Api&P=0&h=180', 'Book by Yuval Noah Harari exploring the history of humankind.', '19.99', 'History'),
+('Guns, Germs, and Steel', 'https://tse1.mm.bing.net/th?id=OIP.DNOhkz3arL9-YNHWCRXIxQHaLX&pid=Api&P=0&h=180', 'A history book by Jared Diamond about societal development.', '17.00', 'History'),
+('The Silk Roads', 'https://tse4.mm.bing.net/th?id=OIP.Pm4vxDrhiiU6OSY2yyyiRwHaJd&pid=Api&P=0&h=180', 'A historical overview of the world from an Asian perspective by Peter Frankopan.', '16.25', 'History');

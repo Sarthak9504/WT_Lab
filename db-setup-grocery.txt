@@ -1,0 +1,50 @@
+1) Create and use the database
+
+CREATE DATABASE grocery;
+
+USE grocery;
+
+
+2) Create the users table
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+3) Create products table
+
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    image TEXT,
+    description TEXT,
+    cost VARCHAR(10),
+    category VARCHAR(50)
+);
+
+4) Insert the products into database
+
+INSERT INTO products (name, image, description, cost, category) VALUES
+('Apple', 'https://tse4.mm.bing.net/th?id=OIP.tiT8tlQzh7M_E8Pl1PG4bAHaE8&pid=Api&P=0&h=180', 'Fresh and crisp, rich in fiber and vitamins.', 2.00, 'Fruits'),
+('Banana', 'https://tse4.mm.bing.net/th?id=OIP.IXKCpF-CG8jGSmOdUoYKIQHaEK&pid=Api&P=0&h=180', 'A great source of potassium, perfect for snacks.', 1.00, 'Fruits'),
+('Orange', 'https://tse4.mm.bing.net/th?id=OIP.VbKz6SeSX9CQifygrVttcwHaE7&pid=Api&P=0&h=180', 'Citrusy and juicy, rich in Vitamin C.', 3.00, 'Fruits'),
+
+('Carrot', 'https://tse3.mm.bing.net/th?id=OIP.CZkr0J3LeRsMafEnZZGpcAHaFj&pid=Api&P=0&h=180', 'Crunchy and sweet, great for eyes and skin.', 1.50, 'Vegetables'),
+('Broccoli', 'https://tse3.mm.bing.net/th?id=OIP.bhKzYm1DO7-x-VMI787hvgHaFj&pid=Api&P=0&h=180', 'Rich in fiber and antioxidants, ideal for steaming.', 2.50, 'Vegetables'),
+('Spinach', 'https://tse3.mm.bing.net/th?id=OIP.QlF4fYFHkp0XN7QJLrrJjQHaE8&pid=Api&P=0&h=180', 'Leafy green high in iron and vitamins.', 2.00, 'Vegetables'),
+
+('Milk', 'https://tse2.mm.bing.net/th?id=OIP.Zu0nFQS5EzFSl2P-nunp0gHaE8&pid=Api&P=0&h=180', 'Whole milk, high in calcium and protein.', 3.00, 'Dairy'),
+('Cheese', 'https://tse3.mm.bing.net/th?id=OIP.5CJBdGMlAO2omDg97S9nAQHaEK&pid=Api&P=0&h=180', 'Cheddar cheese block, rich in flavor.', 4.00, 'Dairy'),
+('Yogurt', 'https://tse3.mm.bing.net/th?id=OIP.h-UVY5dKoilr-VFp5KjyzwHaE6&pid=Api&P=0&h=180', 'Plain Greek yogurt, probiotic and healthy.', 2.00, 'Dairy'),
+
+('Bread', 'https://tse3.mm.bing.net/th?id=OIP.aGm86Gqp6yyL0PaztbWFpAHaE8&pid=Api&P=0&h=180', 'Whole wheat bread, freshly baked.', 2.00, 'Bakery'),
+('Croissant', 'https://tse1.mm.bing.net/th?id=OIP.tkb7l6QJg4csrSU6RZYZRwHaE8&pid=Api&P=0&h=180', 'Buttery and flaky, great with coffee.', 1.50, 'Bakery'),
+('Muffin', 'https://tse2.mm.bing.net/th?id=OIP.Cftoph2Zcp91Zk9eNO_GAgHaHa&pid=Api&P=0&h=180', 'Blueberry muffin, soft and moist.', 2.00, 'Bakery'),
+
+('Potato Chips', 'https://tse2.mm.bing.net/th?id=OIP.sMUgf9zGU21EdVBBh_o73AHaEK&pid=Api&P=0&h=180', 'Crispy salted chips for quick munching.', 1.50, 'Snacks'),
+('Granola Bar', 'https://tse1.mm.bing.net/th?id=OIP.zLc1R8ZwQyNECMDovatwvAHaHa&pid=Api&P=0&h=180', 'Healthy snack bar with oats and nuts.', 1.00, 'Snacks'),
+('Popcorn', 'https://tse2.mm.bing.net/th?id=OIP.Z5_OEcDrFct5jr1LKHoHjAHaE8&pid=Api&P=0&h=180', 'Butter-flavored microwave popcorn.', 2.00, 'Snacks');
