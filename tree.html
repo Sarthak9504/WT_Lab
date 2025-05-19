@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tree Search & Sort Visualizer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background: linear-gradient(to right, #e0eafc, #cfdef3);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .card {
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+
+        .output-box {
+            min-height: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <h1>Tree Search & Sort Visualizer</h1>
+            <p class="text-muted">Insert numbers to create a tree, then search or sort</p>
+        </div>
+
+        <div class="card p-4">
+            <div class="form">
+                <div class="mb-3">
+                    <label for="numbersInput" class="form-label">Enter integers (comma separated)</label>
+                    <input type="text" class="form-control" id="numbersInput"
+                        placeholder="e.g. 50, 30, 70, 20, 40, 60, 80" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="searchValue" class="form-label">Search for value</label>
+                    <input type="number" class="form-control" id="searchValue" placeholder="e.g. 60" />
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-success me-2" onclick="buildTree()">Build Tree</button>
+                    <button class="btn btn-primary me-2" onclick="searchTree()">Search</button>
+                    <button class="btn btn-warning" onclick="sortTree()">Sort (In-order Traversal)</button>
+                </div>
+
+                <div class="mt-4 output-box">
+                    <div id="output" class="alert alert-info text-center">No operation performed yet.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tree Node class
+        class TreeNode {
+            constructor(value) {
+                this.value = value;
+                this.left = null;
+                this.right = null;
+            }
+
+            insert(newValue) {
+                if (newValue < this.value) {
+                    if (this.left === null) this.left = new TreeNode(newValue);
+                    else this.left.insert(newValue);
+                } else {
+                    if (this.right === null) this.right = new TreeNode(newValue);
+                    else this.right.insert(newValue);
+                }
+            }
+
+            inOrderTraversal(result = []) {
+                if (this.left) this.left.inOrderTraversal(result);
+                result.push(this.value);
+                if (this.right) this.right.inOrderTraversal(result);
+                return result;
+            }
+
+            search(value) {
+                if (this.value === value) return true;
+                if (value < this.value && this.left) return this.left.search(value);
+                if (value > this.value && this.right) return this.right.search(value);
+                return false;
+            }
+        }
+
+        let root = null;
+
+        function buildTree() {
+            const input = document.getElementById("numbersInput").value;
+            const values = input.split(",").map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+            const output = document.getElementById("output");
+
+            if (values.length === 0) {
+                output.className = "alert alert-warning text-center";
+                output.textContent = "⚠️ Please enter at least one valid number.";
+                return;
+            }
+
+            root = new TreeNode(values[0]);
+            for (let i = 1; i < values.length; i++) {
+                root.insert(values[i]);
+            }
+
+            output.className = "alert alert-success text-center";
+            output.innerHTML = `✅ Tree built with values: <strong>${values.join(", ")}</strong>`;
+        }
+
+        function sortTree() {
+            const output = document.getElementById("output");
+
+            if (!root) {
+                output.className = "alert alert-warning text-center";
+                output.textContent = "⚠️ Build the tree first!";
+                return;
+            }
+
+            const sorted = root.inOrderTraversal();
+            output.className = "alert alert-info text-center";
+            output.innerHTML = `🟢 In-order Traversal (Sorted): <strong>${sorted.join(", ")}</strong>`;
+        }
+
+        function searchTree() {
+            const value = parseInt(document.getElementById("searchValue").value);
+            const output = document.getElementById("output");
+
+            if (!root) {
+                output.className = "alert alert-warning text-center";
+                output.textContent = "⚠️ Build the tree first!";
+                return;
+            }
+
+            if (isNaN(value)) {
+                output.className = "alert alert-danger text-center";
+                output.textContent = "⚠️ Enter a valid number to search.";
+                return;
+            }
+
+            const found = root.search(value);
+            output.className = `alert ${found ? 'alert-success' : 'alert-danger'} text-center`;
+            output.innerHTML = found
+                ? `🎯 Value <strong>${value}</strong> was found in the tree!`
+                : `❌ Value <strong>${value}</strong> was NOT found in the tree.`;
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+Exam Result DB setup
+
+Create vit_results;
+
+CREATE TABLE student_marks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_name VARCHAR(100) NOT NULL,
+    roll_no VARCHAR(20) NOT NULL,
+    
+    cn_mse INT CHECK (cn_mse BETWEEN 0 AND 30),
+    cn_ese INT CHECK (cn_ese BETWEEN 0 AND 70),
+    
+    cs_mse INT CHECK (cs_mse BETWEEN 0 AND 30),
+    cs_ese INT CHECK (cs_ese BETWEEN 0 AND 70),
+    
+    wt_mse INT CHECK (wt_mse BETWEEN 0 AND 30),
+    wt_ese INT CHECK (wt_ese BETWEEN 0 AND 70),
+    
+    os_mse INT CHECK (os_mse BETWEEN 0 AND 30),
+    os_ese INT CHECK (os_ese BETWEEN 0 AND 70)
+);
+
+
+INSERT INTO student_marks 
+(student_name, roll_no, cn_mse, cn_ese, cs_mse, cs_ese, wt_mse, wt_ese, os_mse, os_ese) 
+VALUES
+('Sarthak Pithe', 'VIT001', 25, 60, 28, 65, 22, 58, 27, 62),
+('Hrishikesh Potnis', 'VIT002', 18, 55, 20, 50, 25, 60, 23, 59),
+('Madhur Vaidya', 'VIT003', 30, 68, 29, 66, 27, 65, 26, 63),
+('Soham Nimale', 'VIT004', 22, 58, 24, 62, 20, 55, 28, 66);

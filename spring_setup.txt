@@ -1,0 +1,10 @@
+Spring Setup
+
+Spring Backend
+1) First extract the zip file.
+2) Install Maven (Binary Zip Archive): https://maven.apache.org/download.cgi
+3) Extract the downloaded file in c:/extracted file.
+4) Copy bin path in environment variables -> system variables under the path variable.
+5) Navigate to Spring-server > demo > src > resources > application properties, make the changes related to username password of MYSQL client and also make sure database name is correct.
+6) Now in the intellij terminal run mvn clean install, if everything goes fine then run: mvn spring-boot:run this should start the server (Note: try visiting http://localhost:8080) to make sure the server is started.
+7) Backend Done
